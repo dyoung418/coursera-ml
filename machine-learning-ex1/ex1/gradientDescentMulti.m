@@ -34,6 +34,15 @@ for iter = 1:num_iters
     J_history(iter) = computeCost(X, y, theta);
     %plot(J_history);
     %pause;
+    
+    % Note that for computing the gradients with regularization, here
+    % is the code:
+    %[m, n] = size(X)
+    %predictions = X * theta;              % mxn * nx1 --> mx1
+    %errors = predictions - y;             % mx1 - mx1 --> mx1
+    %grad = ((1/m) * (errors' * X))';       % a * (1xm * mxn) --> 1xn' --> nx1  (theta_zero doesn't get regularized)
+    %grad(2:end) = grad(2:end) + ((lambda/m).*theta(2:end))
+
 
 end
 

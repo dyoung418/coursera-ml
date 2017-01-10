@@ -17,7 +17,8 @@ predictions = X*theta;
 sqrErrors = (predictions - y).^2; 
 J = 1/(2*m) * sum(sqrErrors);
 
-
+%note, if we add regularization into this, then the cost becomes the following:
+% J = 1/(2*m) * (sum(sqrErrors) + (lambda * sum(theta(2:end).^2)))
 
 
 

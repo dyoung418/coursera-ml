@@ -16,10 +16,19 @@ grad = zeros(size(theta));
 %               You should set J to the cost.
 %               Compute the partial derivatives and set grad to the partial
 %               derivatives of the cost w.r.t. each parameter in theta
+%
+% Note: grad should have the same dimensions as theta
+%
 
+pre_sigmoid_predictions = X*theta;                % mxn * nx1 --> mx1
+h = sigmoid(pre_sigmoid_predictions);             % --> mx1
+J_unregularized = (1/m) * ((-y' * log(h)) - ((1-y)' * log(1-h))); % 1 * (1xm * mx1 - 1xm * mx1)
+J = J_unregularized + ((lambda/(2*m)) .* sum(theta(2:end).^2));
 
-
-
+errors = h - y;             % mx1 - mx1 --> mx1
+delta = (1/m) * X' * errors; % 1 * nxm * mx1 --> nx1
+grad(1) = delta(1); % theta_0 (the "y-intercept") doesn't get regularized
+grad(2:end) = delta(2:end) + ((lambda/m)*theta(2:end));
 
 
 % =============================================================
