@@ -19,10 +19,14 @@ W = zeros(L_out, 1 + L_in);
 % Note: The first column of W corresponds to the parameters for the bias unit
 %
 
+% A strategy for choosing epsilon_init is to base it on the number of units
+% in the network in surrounding layers.  A good choice of epsilon_init is as
+% follows:
+% epsilon_ini = sqrt(6) / sqrt(L_in _ L_out);
 
 
-
-
+epsilon_init = 0.12;
+W = rand(L_out, 1 + L_in) * 2 * epsilon_init - epsilon_init;
 
 
 
