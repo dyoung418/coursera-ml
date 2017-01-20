@@ -52,7 +52,17 @@ error_val   = zeros(m, 1);
 %
 
 % ---------------------- Sample Solution ----------------------
-
+error_train = zeros(m,1); % each row will be for a different training set size
+error_val = zeros(m,1); % each row will be for a different training set size
+for i = 1:m
+    X_subset = X(1:i,:);
+    y_subset = y(1:i,:);
+    [theta] = trainLinearReg(X_subset, y_subset, lambda);
+    %error_train(i,1) = (1/(2*m))* sum(((X_subset*theta)-y_subset).^2);
+    %error_val(i,1) = (1/(2*m))* sum(((Xval*theta)-yval).^2);
+    error_train(i,1) = linearRegCostFunction(X_subset, y_subset, theta, 0); %lambda=0 to compute train error
+    error_val(i,1) = linearRegCostFunction(Xval, yval, theta, 0); %lambda=0 to compute train error
+end
 
 
 
