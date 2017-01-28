@@ -39,6 +39,14 @@ Theta_grad = zeros(size(Theta));
 %        Theta_grad - num_users x num_features matrix, containing the 
 %                     partial derivatives w.r.t. to each element of Theta
 %
+filtered_prediction = R.*(X*Theta');  % only include intersections with a rating
+filtered_Y = R.*Y;
+J_unregularized = (1/2).*sum(sum( (filtered_prediction - filtered_Y).^2));
+J = J_unregularized + ((lambda./2).*sum(sum(Theta.^2))) + ((lambda./2).*sum(sum(X.^2)));
+
+X_grad = (filtered_prediction - filtered_Y) * Theta + (lambda.*X); % nmXnu - nmXnu * nuXnf --> nmXnf
+Theta_grad = (filtered_prediction - filtered_Y)' * X + (lambda.*Theta);% nuXnm * nmXnf --> nuXnf
+
 
 
 

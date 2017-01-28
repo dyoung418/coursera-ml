@@ -23,12 +23,11 @@ for epsilon = min(pval):stepsize:max(pval)
     % Note: You can use predictions = (pval < epsilon) to get a binary vector
     %       of 0's and 1's of the outlier predictions
     pos_predictions = [pval < epsilon];
-    neg_predictions = [pval >= epsilon];
     
-    true_pos = sum([pos_predictions == yval]);
-    false_pos = sum([pos_predictions != yval]);
-    false_neg = sum([neg_predictions == yval]);
-    true_neg = sum([neg_predictions != yval]);
+    false_pos = sum((pos_predictions==1) & (yval==0));
+    true_pos = sum((pos_predictions==1) & (yval==1));
+    true_neg = sum((pos_predictions==0) & (yval==0));
+    false_neg = sum((pos_predictions==0) & (yval==1));
 
     precision = true_pos./(true_pos + false_pos);  % true_pos / # predicted pos
     recall = true_pos./(true_pos + false_neg);  % true_pos / # actual positives
